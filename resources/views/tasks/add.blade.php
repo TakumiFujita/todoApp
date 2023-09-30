@@ -51,5 +51,6 @@
         <label for="content">タスク内容<span>(必須)</span></label><br>
         <textarea rows="5" name="content" placeholder="タスク内容を具体的に書きましょう">{{ old('content') }}</textarea>
     </div>
+    <a href="/">戻る</a>
     <button type="submit">追加する</button>
 </form>
