@@ -52,6 +52,15 @@
         <label for="content">タスク内容<span>(必須)</span></label><br>
         <textarea rows="5" name="content" placeholder="タスク内容を具体的に書きましょう">{{ old('content', $task->content) }}</textarea>
     </div>
+    <div class="form-group">
+        <label for="deadline">期限</label><br>
+        @if ($task->deadline === null)
+            <input type="date" name="deadline" min={{ $nowDate }} value="{{ old('deadline') }}">
+        @else
+            <input type="date" name="deadline" min={{ $nowDate }}
+                value="{{ old('deadline', Carbon\Carbon::parse($task->deadline)->format('Y-m-d')) }}">
+        @endif
+    </div>
     <a href="/">戻る</a>
     <button type="submit">更新する</button>
 </form>

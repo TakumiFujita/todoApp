@@ -60,13 +60,17 @@
     <table>
         <tr>
             <th>タスク</th>
+            <th>期限</th>
             <th>アクション</th>
         </tr>
         @foreach ($tasks as $task)
             <tr>
                 <td class="td1">{{ $task->name }}</td>
+                <td>{{ $task->deadline ? \Carbon\Carbon::parse($task->deadline)->format('Y年m月d日') : '未設定' }}</td>
                 <td class="td2">
-                    <a href="{{ route('tasks.show', ['id' => $task->id]) }}">詳細</a>
+                    <button class="bg-blue-600 hover:bg-blue-500 text-white rounded px-4 py-2">Blue 600</button>
+                    <a href="{{ route('tasks.show', ['id' => $task->id]) }}"
+                        class="bg-blue-700 hover:bg-blue-600 text-white rounded px-4 py-2">詳細</a>
                     <a href="{{ route('tasks.edit', ['id' => $task->id]) }}">編集</a>
                     <form action="{{ route('tasks.delete', ['id' => $task->id]) }}" method="POST">
                         @csrf

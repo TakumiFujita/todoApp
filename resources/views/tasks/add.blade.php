@@ -51,6 +51,10 @@
         <label for="content">タスク内容<span>(必須)</span></label><br>
         <textarea rows="5" name="content" placeholder="タスク内容を具体的に書きましょう">{{ old('content') }}</textarea>
     </div>
+    <div class="form-group">
+        <label for="deadline">期限</label><br>
+        <input type="date" name="deadline" min={{ $nowDate }} value="{{ old('deadline') }}">
+    </div>
     <a href="/">戻る</a>
     <button type="submit">追加する</button>
 </form>

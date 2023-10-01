@@ -46,6 +46,10 @@
             <td>{{ $task->content }}</td>
         </tr>
         <tr>
+            <th>期限</th>
+            <td>{{ $task->deadline ? \Carbon\Carbon::parse($task->deadline)->format('Y年m月d日') : '未設定' }}</td>
+        </tr>
+        <tr>
             <th>作成日時</th>
             <td>{{ $task->created_at->format('Y年m月d日 H:i') }}</td>
         </tr>

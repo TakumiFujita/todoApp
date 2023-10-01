@@ -10,7 +10,7 @@ class TasksController extends Controller
 {
     public function index()
     {
-        $tasks = Task::orderby('updated_at', 'desc')->get();
+        $tasks = Task::orderby('deadline', 'asc')->get();
         return view('tasks.index', compact('tasks'));
     }
 
@@ -22,7 +22,8 @@ class TasksController extends Controller
 
     public function add()
     {
-        return view('tasks.add');
+        $nowDate = now()->format('Y-m-d');
+        return view('tasks.add', compact('nowDate'));
     }
 
     public function store(TaskRequest $request)
@@ -30,14 +31,16 @@ class TasksController extends Controller
         $result = Task::create([
             'name' => $request->name,
             'content' => $request->content,
+            'deadline' => $request->deadline,
         ]);
         return redirect()->route('tasks.index');
     }
 
     public function edit($id)
     {
+        $nowDate = now()->format('Y-m-d');
         $task = Task::find($id);
-        return view('tasks.edit', compact('task'));
+        return view('tasks.edit', compact('task', 'nowDate'));
     }
 
     public function update(TaskRequest $request, $id)
@@ -46,6 +49,7 @@ class TasksController extends Controller
         $task->fill([
             'name' => $request->name,
             'content' => $request->content,
+            'deadline' => $request->deadline,
         ])
             ->save();
 
