@@ -74,10 +74,18 @@
                     <a href="{{ route('tasks.edit', ['id' => $task->id]) }}">編集</a>
                     <form action="{{ route('tasks.delete', ['id' => $task->id]) }}" method="POST">
                         @csrf
-                        <button type="submit">削除</button>
+                        <button type="submit" onClick="delete_alert(event);return false;">削除</button>
                     </form>
                 </td>
             </tr>
         @endforeach
     </table>
 </div>
+<script>
+    function delete_alert(e) {
+        if (!window.confirm('本当に削除しますか？')) {
+            return false;
+        }
+        document.deleteform.submit();
+    };
+</script>

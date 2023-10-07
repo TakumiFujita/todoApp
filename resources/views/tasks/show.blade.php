@@ -68,8 +68,17 @@
         <div class="link__delete">
             <form action="{{ route('tasks.delete', ['id' => $task->id]) }}" method="POST">
                 @csrf
-                <button action="{{ route('tasks.delete', ['id' => $task->id]) }}" method="POST">削除</button>
+                <button action="{{ route('tasks.delete', ['id' => $task->id]) }}" method="POST"
+                    onClick="delete_alert(event);return false;">削除</button>
             </form>
         </div>
     </div>
 </div>
+<script>
+    function delete_alert(e) {
+        if (!window.confirm('本当に削除しますか？')) {
+            return false;
+        }
+        document.deleteform.submit();
+    };
+</script>
