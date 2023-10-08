@@ -1,84 +1,92 @@
-<style>
-    h1 {
-        text-align: center;
-        padding: 30px;
-    }
+@extends('layout')
 
-    .container {
-        width: 60%;
-        margin: 0 auto;
-    }
+@section('title', 'show')
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
+@section('content')
+    <style>
+        h1 {
+            text-align: center;
+            padding: 30px;
+        }
 
-    table th,
-    table td {
-        padding: 10px 0;
-        text-align: center;
-    }
+        .container {
+            width: 60%;
+            margin: 0 auto;
+        }
 
-    table tr:nth-child(odd) {
-        background-color: #eee
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
 
-    .link {
-        display: flex;
-        justify-content: space-between;
-    }
-</style>
-<h1>タスク詳細</h1>
-<div class="container">
-    <table>
-        <tr>
-            <th>ID</th>
-            <td>{{ $task->id }}</td>
-        </tr>
-        <tr>
-            <th>タスク</th>
-            <td>{{ $task->name }}</td>
-        </tr>
-        <tr>
-            <th>タスク内容</th>
-            <td>{{ $task->content }}</td>
-        </tr>
-        <tr>
-            <th>期限</th>
-            <td>{{ $task->deadline ? \Carbon\Carbon::parse($task->deadline)->format('Y年m月d日') : '未設定' }}</td>
-        </tr>
-        <tr>
-            <th>作成日時</th>
-            <td>{{ $task->created_at->format('Y年m月d日 H:i') }}</td>
-        </tr>
-        <tr>
-            <th>更新日時</th>
-            <td>{{ $task->updated_at->format('Y年m月d日 H:i') }}</td>
-        </tr>
-    </table>
-    <div class="link">
-        <div class="link__back">
-            <a href="/">戻る</a>
-        </div>
-        <div class="link__edit">
-            <a href="{{ route('tasks.edit', ['id' => $task->id]) }}">編集する</a>
-        </div>
-        <div class="link__delete">
-            <form action="{{ route('tasks.delete', ['id' => $task->id]) }}" method="POST">
-                @csrf
-                <button action="{{ route('tasks.delete', ['id' => $task->id]) }}" method="POST"
-                    onClick="delete_alert(event);return false;">削除</button>
-            </form>
+        table th,
+        table td {
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        table tr:nth-child(odd) {
+            background-color: #eee
+        }
+
+        .link {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+    <h1 class="text-4xl font-normal">タスク詳細</h1>
+    <div class="container">
+        <table>
+            <tr>
+                <th>ID</th>
+                <td>{{ $task->id }}</td>
+            </tr>
+            <tr>
+                <th>タスク</th>
+                <td>{{ $task->name }}</td>
+            </tr>
+            <tr>
+                <th>タスク内容</th>
+                <td>{{ $task->content }}</td>
+            </tr>
+            <tr>
+                <th>期限</th>
+                <td>{{ $task->deadline ? \Carbon\Carbon::parse($task->deadline)->format('Y年m月d日') : '未設定' }}</td>
+            </tr>
+            <tr>
+                <th>作成日時</th>
+                <td>{{ $task->created_at->format('Y年m月d日 H:i') }}</td>
+            </tr>
+            <tr>
+                <th>更新日時</th>
+                <td>{{ $task->updated_at->format('Y年m月d日 H:i') }}</td>
+            </tr>
+        </table>
+        <div class="link">
+            <div class="link__back">
+                <a href="/" class="bg-blue-500 hover:bg-blue-600 text-white rounded px-4 py-2 flex items-center">戻る</a>
+            </div>
+            <div class="link__edit">
+                <a href="{{ route('tasks.edit', ['id' => $task->id]) }}"
+                    class="bg-blue-500 hover:bg-blue-600 text-white rounded px-4 py-2 flex items-center">編集する</a>
+            </div>
+            <div class="link__delete">
+                <form action="{{ route('tasks.delete', ['id' => $task->id]) }}" method="POST">
+                    @csrf
+                    <button action="{{ route('tasks.delete', ['id' => $task->id]) }}" method="POST"
+                        onClick="delete_alert(event);return false;"
+                        class="bg-red-500 hover:bg-red-600 text-white rounded px-4 py-2 flex items-center">削除</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<script>
-    function delete_alert(e) {
-        if (!window.confirm('本当に削除しますか？')) {
-            return false;
-        }
-        document.deleteform.submit();
-    };
-</script>
+    <script>
+        function delete_alert(e) {
+            if (!window.confirm('本当に削除しますか？')) {
+                return false;
+            }
+            document.deleteform.submit();
+        };
+    </script>
+@endsection
