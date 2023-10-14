@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'add')
+@section('title', 'edit')
 
 @section('content')
     <style>
